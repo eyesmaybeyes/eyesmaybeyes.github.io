@@ -2,49 +2,61 @@
 <html>
     <head>
         <title>Send Mail</title>
-        <script src="https://smtpjs.com/v3/smtp.js"></script>
-
-        <script type="text/javascript">
-            // get form element
-            const form = document.getElementById("email-form");
-
-            // add form submit event listener
-            form.addEventListener("submit", (event) => {
-                // prevent form from submitting
-                event.preventDefault();
-
-                // get form values
-                const to = document.getElementById("to").value;
-                const subject = document.getElementById("subject").value;
-                const body = document.getElementById("body").value;
-
-                // send email using EmailJS
-                emailjs
-                    .send("service_lbt9ubp", "template_n6y514h", {
-                        to,
-                        subject,
-                        body,
-                    })
-                    .then((response) => {
-                        console.log("Email sent successfully");
-                    })
-                    .catch((error) => {
-                        console.error("Error sending email:", error);
-                    });
-            });
-        </script>
-        <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+        <script src="http://pure.github.io/pure/libs/pure.js"></script>
     </head>
 
     <body>
-        <form id="email-form">
-            <label for="to">To:</label><br />
-            <input type="text" id="to" name="to" /><br />
-            <label for="subject">Subject:</label><br />
-            <input type="text" id="subject" name="subject" /><br />
-            <label for="body">Body:</label><br />
-            <textarea id="body" name="body"></textarea><br />
-            <button type="submit">Send</button>
+        <form id="form">
+            <div class="field">
+                <label for="from_name">from_name</label>
+                <input type="text" name="from_name" id="from_name" />
+            </div>
+            <div class="field">
+                <label for="to_name">to_name</label>
+                <input type="text" name="to_name" id="to_name" />
+            </div>
+            <div class="field">
+                <label for="message">message</label>
+                <input type="text" name="message" id="message" />
+            </div>
+            <div class="field">
+                <label for="reply_to">reply_to</label>
+                <input type="text" name="reply_to" id="reply_to" />
+            </div>
+
+            <input type="submit" id="button" value="Send Email" />
         </form>
+
+        <script
+            type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+        ></script>
+
+        <script type="text/javascript">
+            emailjs.init("ZctvxbsRQBFAqgd-E");
+            const btn = document.getElementById("button");
+
+            document
+                .getElementById("form")
+                .addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    btn.value = "Sending...";
+
+                    const serviceID = "default_service";
+                    const templateID = "template_n6y514h";
+
+                    emailjs.sendForm(serviceID, templateID, this).then(
+                        () => {
+                            btn.value = "Send Email";
+                            alert("Sent!");
+                        },
+                        (err) => {
+                            btn.value = "Send Email";
+                            alert(JSON.stringify(err));
+                        }
+                    );
+                });
+        </script>
     </body>
 </html>
