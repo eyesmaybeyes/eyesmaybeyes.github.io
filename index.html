@@ -7,21 +7,23 @@
         <script type="text/javascript">
             function sendEmail() {
                 Email.send({
-                    SecureToken: "A209FEE438EC3F479D8698921FD978B1C7D3",
+                    Host: "smtp.gmail.com",
+                    Username: "jdjdj8034@gmail.com",
+                    Password: "yfnxyhhrfqyzliux",
                     To: "loker28@mail.ru",
-                    From: "jaro42@mail.com",
-                    Subject: "This is the subject",
-                    Body: "And this is the body",
-                }).then((message) => alert(message));
+                    From: "sender423@test.com",
+                    Subject: "Sending Email using javascript",
+                    Body: "Well that was easy!!",
+                }).then(function (message) {
+                    alert("mail sent successfully");
+                });
             }
         </script>
     </head>
 
     <body>
-        <form action="https://formsubmit.co/loker28@mail.ru" method="POST">
-            <input type="text" name="name" required />
-            <input type="email" name="email" required />
-            <button type="submit">Send</button>
+        <form method="post">
+            <input type="button" value="Send Email" onclick="sendEmail()" />
         </form>
     </body>
 </html>
