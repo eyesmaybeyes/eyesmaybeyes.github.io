@@ -5,19 +5,33 @@
         <script src="https://smtpjs.com/v3/smtp.js"></script>
 
         <script type="text/javascript">
-            function sendEmail() {
-                Email.send({
-                    Host: "smtp.gmail.com",
-                    Username: "jdjdj8034@gmail.com",
-                    Password: "yfnxyhhrfqyzliux",
-                    To: "loker28@mail.ru",
-                    From: "sender423@test.com",
-                    Subject: "Sending Email using javascript",
-                    Body: "Well that was easy!!",
-                }).then(function (message) {
-                    alert("mail sent successfully");
-                });
-            }
+            // get form element
+            const form = document.getElementById("email-form");
+
+            // add form submit event listener
+            form.addEventListener("submit", (event) => {
+                // prevent form from submitting
+                event.preventDefault();
+
+                // get form values
+                const to = document.getElementById("to").value;
+                const subject = document.getElementById("subject").value;
+                const body = document.getElementById("body").value;
+
+                // send email using EmailJS
+                emailjs
+                    .send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+                        to,
+                        subject,
+                        body,
+                    })
+                    .then((response) => {
+                        console.log("Email sent successfully");
+                    })
+                    .catch((error) => {
+                        console.error("Error sending email:", error);
+                    });
+            });
         </script>
         <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     </head>
